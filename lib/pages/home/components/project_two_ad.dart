@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
 import 'dart:html' as html;
+
+import '../../../stateManagement/navigate_to_content.dart';
+import '../../../utils/scroll_to_section.dart';
 
 class ProjectTwoAd extends StatelessWidget {
   ProjectTwoAd({Key? key}) : super(key: key);
@@ -14,15 +18,17 @@ class ProjectTwoAd extends StatelessWidget {
         key: Key("website_ad"),
         desktop: Padding(
           padding: const EdgeInsets.only(top: 60.0),
-          child: _buildUi(kDesktopMaxWidth),
+          child: _buildUi(kDesktopMaxWidth, context),
         ),
-        tablet: _buildUi(kTabletMaxWidth),
-        mobile: _buildUi(getMobileMaxWidth(context)),
+        tablet: _buildUi(kTabletMaxWidth, context),
+        mobile: _buildUi(getMobileMaxWidth(context), context),
       ),
     );
   }
 
-  Widget _buildUi(double width) {
+  Widget _buildUi(double width, BuildContext context) {
+    final navigateToContent = Provider.of<NavigateToContent>(context);
+
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -43,7 +49,7 @@ class ProjectTwoAd extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "UI DESIGN",
+                          "UI DESIGNS",
                           style: GoogleFonts.oswald(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w900,
@@ -54,7 +60,7 @@ class ProjectTwoAd extends StatelessWidget {
                           height: 15.0,
                         ),
                         Text(
-                          "PHILIA | JJP CONSTRUCTION",
+                          "MOBILE AND WEB DESIGNS",
                           style: GoogleFonts.oswald(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
@@ -66,7 +72,7 @@ class ProjectTwoAd extends StatelessWidget {
                           height: 10.0,
                         ),
                         Text(
-                          "This is a random text about the project, I should have used the regular lorem ipsum text, but I am too lazy to search for that. This should be long enough",
+                          "I design and develop mobile and web applications with a focus on user experience and user interface design, with deep understanding of the latest trends and technologies.",
                           style: TextStyle(
                             color: kCaptionColor,
                             height: 1.5,
@@ -95,7 +101,7 @@ class ProjectTwoAd extends StatelessWidget {
                                   ),
                                   onPressed: () {
                                     html.window.open(
-                                      "https://wearephilia.com/",
+                                      "https://dribbble.com/biniyam112",
                                       '_blank',
                                     );
                                   },
@@ -138,7 +144,10 @@ class ProjectTwoAd extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    navigateToContent.navigateTo(PageContent.education);
+                                    scrollToSection(navigateToContent.currentKey);
+                                  },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 28.0,
@@ -146,7 +155,7 @@ class ProjectTwoAd extends StatelessWidget {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "NEXT APP",
+                                        "NEXT SECTION",
                                         style: TextStyle(
                                           color: kPrimaryColor,
                                           fontSize: 13.0,

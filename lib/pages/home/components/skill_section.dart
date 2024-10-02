@@ -1,30 +1,33 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:web_portfolio/models/skill.dart';
 import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
+import 'dart:html' as html;
 
 List<Skill> skills = [
   Skill(
     skill: "Dart",
-    percentage: 62,
+    percentage: 96,
   ),
   Skill(
-    skill: "Javascript",
-    percentage: 80,
-  ),
-  Skill(
-    skill: "PHP",
-    percentage: 78,
+    skill: "React.js",
+    percentage: 88,
   ),
   Skill(
     skill: "Python",
-    percentage: 90,
+    percentage: 83,
   ),
   Skill(
-    skill: "GoLang",
-    percentage: 40,
+    skill: "Javascript",
+    percentage: 82,
+  ),
+  Skill(
+    skill: "Next.js",
+    percentage: 85,
   ),
 ];
 
@@ -59,8 +62,8 @@ class SkillSection extends StatelessWidget {
               children: [
                 Expanded(
                   flex: ScreenHelper.isMobile(context) ? 0 : 2,
-                  child: Image.asset(
-                    "assets/pixel_profile.png",
+                  child: Lottie.asset(
+                    "assets/lottie/lottie_3.json",
                     width: 300.0,
                   ),
                 ),
@@ -85,16 +88,37 @@ class SkillSection extends StatelessWidget {
                       SizedBox(
                         height: 10.0,
                       ),
-                      Text(
-                        "This is all the skills listed below more will be added in due time. This is all the skills listed below more will be added in due time.",
-                        style: TextStyle(
-                          color: kCaptionColor,
-                          height: 1.5,
-                          fontSize: 16.0,
+                      RichText(
+                        text: TextSpan(
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 14.0,
+                            height: 1.5,
+                          ),
+                          children: [
+                            TextSpan(
+                              text:
+                                  "The skill ratings displayed are based on technical assessments completed on the WeLoveDevs platform. These assessments measure proficiency in various programming languages and frameworks. You can explore the tests at ",
+                              style: TextStyle(
+                                color: kCaptionColor,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "https://welovedevs.com/app/tests.",
+                              mouseCursor: WidgetStateMouseCursor.clickable,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  html.window
+                                      .open("https://welovedevs.com/app/tests", "WeLoveDevs");
+                                },
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
-                        height: 15.0,
+                        height: 16.0,
                       ),
                       Column(
                         children: skills

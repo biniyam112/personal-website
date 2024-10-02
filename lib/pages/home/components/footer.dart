@@ -5,29 +5,39 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:web_portfolio/models/footer_item.dart';
 import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
+import 'dart:html' as html;
 
 final List<FooterItem> footerItems = [
   FooterItem(
+      iconPath: "assets/phone.png",
+      title: "PHONE",
+      text1: "+251 941726567",
+      onTap: () {
+        html.window.open("tel:+251941726567", "phone");
+      }),
+  FooterItem(
     iconPath: "assets/mappin.png",
-    title: "ADDRESS",
-    text1: "999 Carter Street",
-    text2: "Sailor Springs, IL 64234",
+    title: "TELEGRAM",
+    text1: "@bnym112",
+    onTap: () {
+      html.window.open("https://t.me/BNYM112", "telegram");
+    },
   ),
   FooterItem(
-    iconPath: "assets/phone.png",
-    title: "PHONE",
-    text1: "+251 941726567",
-  ),
-  FooterItem(
-    iconPath: "assets/email.png",
-    title: "EMAIL",
-    text1: "biniyamdemissew112@gmail.com",
-    text2: "biniyamluna112@gmail.com",
-  ),
+      iconPath: "assets/email.png",
+      title: "EMAIL",
+      text1: "biniyamdemissew112@gmail.com",
+      text2: "biniyamluna112@gmail.com",
+      onTap: () {
+        html.window.open("mailto:biniyamdemissew112@gmail.com", "email");
+      }),
   FooterItem(
     iconPath: "assets/whatsapp.png",
     title: "WHATSAPP",
     text1: "+251 941726567",
+    onTap: () {
+      html.window.open("https://wa.me/+251941726567", "whatsapp");
+    },
   )
 ];
 
@@ -102,17 +112,29 @@ Widget _buildUi(double width, BuildContext context) {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "${footerItem.text1}\n",
-                                      style: TextStyle(
-                                        color: kCaptionColor,
+                                    MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: footerItem.onTap,
+                                        child: Text(
+                                          "${footerItem.text1}\n",
+                                          style: TextStyle(
+                                            color: kCaptionColor,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     if (footerItem.text2 != null)
-                                      Text(
-                                        "${footerItem.text2}\n",
-                                        style: TextStyle(
-                                          color: kCaptionColor,
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        child: GestureDetector(
+                                          onTap: footerItem.onTap,
+                                          child: Text(
+                                            "${footerItem.text2}\n",
+                                            style: TextStyle(
+                                              color: kCaptionColor,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                   ],

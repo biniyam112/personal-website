@@ -65,24 +65,32 @@ Widget _buildUi(double width) {
                 height: 5.0,
               ),
               Container(
-                constraints: BoxConstraints(maxWidth: 400.0),
+                constraints: BoxConstraints(maxWidth: 600.0),
                 child: RichText(
                   text: TextSpan(
+                    style: GoogleFonts.plusJakartaSans(
+                      height: 1.8,
+                    ),
                     children: [
                       TextSpan(
-                        text: "This is the portfolio section. There is alot of work here",
-                        style: TextStyle(color: Colors.white, height: 1.8),
+                        text:
+                            "Check out reviews from my amazing co-workers and see how I can help with your project.",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                       TextSpan(
-                          text: " click here to contact us",
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w700,
-                            height: 1.8,
-                          )),
+                        text: " Get in touch here.",
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       TextSpan(
-                        text: ". Please subscribe to me youtube channel :-)",
-                        style: TextStyle(color: Colors.white, height: 1.8),
+                        text: " Let's collaborate!",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),

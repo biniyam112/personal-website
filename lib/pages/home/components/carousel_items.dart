@@ -99,7 +99,7 @@ List<CarouselItemModel> carouselItems = List.generate(
                     ),
                   ),
                   onPressed: () {
-                    navigateToContent.navigateTo(PageContent.contactMe);
+                    navigateToContent.navigateTo(PageContent.project1);
                     scrollToSection(navigateToContent.currentKey);
                   },
                   child: Padding(
