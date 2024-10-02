@@ -113,7 +113,7 @@ Widget _buildUi(double width) {
                         children: [
                           Container(
                             child: Image.asset(
-                              "assets/quote.png",
+                              "assets/images/quote.png",
                               width: 50.0,
                             ),
                           ),

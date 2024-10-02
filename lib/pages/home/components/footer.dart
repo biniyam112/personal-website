@@ -16,7 +16,7 @@ final List<FooterItem> footerItems = [
         html.window.open("tel:+251941726567", "phone");
       }),
   FooterItem(
-    iconPath: "assets/images/mappin.png",
+    iconPath: "assets/images/telegram.png",
     title: "TELEGRAM",
     text1: "@bnym112",
     onTap: () {

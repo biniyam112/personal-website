@@ -22,7 +22,7 @@ final List<Education> educationList = [
     linkName: "Online Certification",
     linkAddress:
         "https://www.linkedin.com/learning/certificates/4969ec918aa80214a034f04adf648d0906cffababb37314b7da158333ba9bb4e?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B0r7na4VYQjyC5tUM8i1P5Q%3D%3D",
-    period: "Completed",
+    period: "2020",
   ),
   Education(
     description:
