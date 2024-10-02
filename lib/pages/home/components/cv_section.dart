@@ -10,25 +10,25 @@ import '../../../utils/download_files.dart';
 final List<Experience> experience = [
   Experience(
     title: "PROMOTE",
-    imagePath: "assets/plan.png",
+    imagePath: "assets/images/plan.png",
     subtitle:
         "Focus on creating strategies that get your product noticed, helping it connect with the right audience and grow organically.",
   ),
   Experience(
     title: "DESIGN",
-    imagePath: "assets/design.png",
+    imagePath: "assets/images/design.png",
     subtitle:
         "Design intuitive and visually appealing user experiences, making sure every interface feels seamless and easy to use.",
   ),
   Experience(
     title: "DEVELOP",
-    imagePath: "assets/develop.png",
+    imagePath: "assets/images/develop.png",
     subtitle:
         "Build reliable, efficient apps, paying attention to scalability and performance to ensure smooth functionality for users.",
   ),
   Experience(
     title: "SOLVE",
-    imagePath: "assets/write.png",
+    imagePath: "assets/images/write.png",
     subtitle:
         "Enjoy tackling complex challenges, finding clear, effective solutions through careful analysis and thoughtful execution.",
   ),

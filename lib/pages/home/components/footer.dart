@@ -9,14 +9,14 @@ import 'dart:html' as html;
 
 final List<FooterItem> footerItems = [
   FooterItem(
-      iconPath: "assets/phone.png",
+      iconPath: "assets/images/phone.png",
       title: "PHONE",
       text1: "+251 941726567",
       onTap: () {
         html.window.open("tel:+251941726567", "phone");
       }),
   FooterItem(
-    iconPath: "assets/mappin.png",
+    iconPath: "assets/images/mappin.png",
     title: "TELEGRAM",
     text1: "@bnym112",
     onTap: () {
@@ -24,7 +24,7 @@ final List<FooterItem> footerItems = [
     },
   ),
   FooterItem(
-      iconPath: "assets/email.png",
+      iconPath: "assets/images/email.png",
       title: "EMAIL",
       text1: "biniyamdemissew112@gmail.com",
       text2: "biniyamluna112@gmail.com",
@@ -32,7 +32,7 @@ final List<FooterItem> footerItems = [
         html.window.open("mailto:biniyamdemissew112@gmail.com", "email");
       }),
   FooterItem(
-    iconPath: "assets/whatsapp.png",
+    iconPath: "assets/images/whatsapp.png",
     title: "WHATSAPP",
     text1: "+251 941726567",
     onTap: () {
