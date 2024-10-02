@@ -1,44 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:web_portfolio/models/education.dart';
 import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
+import 'dart:html' as html;
 
 final List<Education> educationList = [
   Education(
     description:
-        "This is a sample education and details about it is stated below. This is a sample education and details about it is stated below",
-    linkName: "www.flutterpanda.com",
-    period: "2019 - PRESENT",
+        "Bachelor of Science in Computer Software Engineering. Focused on mobile development and building scalable, efficient systems. Gained hands-on experience in both the technical and design aspects of software engineering.",
+    linkName: "Addis Ababa University (AAU)",
+    linkAddress:
+        "https://drive.google.com/file/d/15_3t1_K3KdOMQ60ABwjlSTr_zZisgrdi/view?usp=sharing",
+    period: "September 2017 - July 2022",
   ),
   Education(
     description:
-        "This is a sample education and details about it is stated below.This is a sample education and details about it is stated below",
-    linkName: "www.flutterpanda.com",
-    period: "2018 - 2019",
+        "Succeeding in Web Development: Full Stack and Front End - A comprehensive course focused on both front-end and back-end web development techniques.",
+    linkName: "Online Certification",
+    linkAddress:
+        "https://www.linkedin.com/learning/certificates/4969ec918aa80214a034f04adf648d0906cffababb37314b7da158333ba9bb4e?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B0r7na4VYQjyC5tUM8i1P5Q%3D%3D",
+    period: "Completed",
   ),
   Education(
     description:
-        "This is a sample education and details about it is stated below. This is a sample education and details about it is stated below",
-    linkName: "www.flutterpanda.com",
-    period: "2017 - 2018",
+        "Mindshift: Break Through Obstacles to Learning and Discover Your Hidden Potential - A course designed to help overcome learning barriers and unlock new ways of thinking.",
+    linkName: "Online Certification",
+    linkAddress:
+        "https://www.coursera.org/account/accomplishments/verify/8MQ5GRPSU63D?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=pdf_header_button&utm_product=course",
+    period: "2020",
   ),
   Education(
     description:
-        "This is a sample education and details about it is stated below. This is a sample education and details about it is stated below",
-    linkName: "www.flutterpanda.com",
-    period: "2016 - 2017",
+        "Programming Foundations: Web Security - Gained fundamental knowledge about securing web applications and ensuring safe online interactions.",
+    linkName: "Online Certification",
+    linkAddress:
+        "https://www.linkedin.com/learning/certificates/5d569efd032bb25286e3a387ee308ff2a716c0a75944b2725d6e42bbb01cba93?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B0r7na4VYQjyC5tUM8i1P5Q%3D%3D",
+    period: "2019",
+  ),
+  Education(
+    description:
+        "Data Structures and Algorithms - Acquired strong foundational skills in data structures and algorithmic problem-solving.",
+    linkName: "Online Certification",
+    linkAddress:
+        "https://drive.google.com/file/d/1SppFhMhGYS-1HS07rJtnzHkuGRlGjf4C/view?usp=sharing",
+    period: "2021-2022",
+  ),
+  Education(
+    description:
+        "Learning Python - Built a solid understanding of Python, focusing on its practical applications in software development.",
+    linkName: "Online Certification",
+    linkAddress:
+        "https://www.linkedin.com/learning/certificates/4969ec918aa80214a034f04adf648d0906cffababb37314b7da158333ba9bb4e?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B0r7na4VYQjyC5tUM8i1P5Q%3D%3D",
+    period: "2020",
   ),
 ];
 
 class EducationSection extends StatelessWidget {
+  EducationSection({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth),
+        key: Key("Education section"),
+        desktop: Padding(
+          padding: const EdgeInsets.only(top: 160.0),
+          child: _buildUi(kDesktopMaxWidth),
+        ),
         tablet: _buildUi(kTabletMaxWidth),
         mobile: _buildUi(getMobileMaxWidth(context)),
       ),
@@ -48,10 +78,11 @@ class EducationSection extends StatelessWidget {
   Widget _buildUi(double width) {
     return Container(
       alignment: Alignment.center,
-      child: ResponsiveWrapper(
-        maxWidth: width,
-        minWidth: width,
-        defaultScale: false,
+      child: ResponsiveConstraints(
+        constraint: BoxConstraints(
+          maxWidth: width,
+          minWidth: width,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -70,9 +101,9 @@ class EducationSection extends StatelessWidget {
             Wrap(
               children: [
                 Container(
-                  constraints: BoxConstraints(maxWidth: 400.0),
+                  constraints: BoxConstraints(minWidth: 400),
                   child: Text(
-                    "A full stack all round developer that does all the job he needs to do at all times. Actually this is a false statement",
+                    "I have a Bachelor's degree in Computer Software Engineering from Addis Ababa University. I have also completed various online courses to further my knowledge in web development, programming, and software engineering.",
                     style: TextStyle(
                       color: Colors.white,
                       height: 1.5,
@@ -123,12 +154,30 @@ class EducationSection extends StatelessWidget {
                                 MouseRegion(
                                   cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
-                                    onTap: () {},
-                                    child: Text(
-                                      education.linkName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                    onTap: () {
+                                      if (education.linkAddress != null) {
+                                        html.window.open(
+                                          education.linkAddress!,
+                                          '_blank',
+                                        );
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          education.linkName,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(width: 5.0),
+                                        if (education.linkAddress != null)
+                                          Icon(
+                                            Iconsax.link,
+                                            color: Colors.grey[300],
+                                            size: 16.0,
+                                          ),
+                                      ],
                                     ),
                                   ),
                                 ),

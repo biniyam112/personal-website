@@ -6,10 +6,10 @@ import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
 
 final List<Stat> stats = [
-  Stat(count: "43", text: "Clients"),
-  Stat(count: "68+", text: "Projects"),
-  Stat(count: "17", text: "Awards"),
-  Stat(count: "10", text: "Years\nExperience"),
+  Stat(count: "4+", text: "Years Flutter\nExperience"),
+  Stat(count: "3+", text: "Years Figma\nExperience"),
+  Stat(count: "5", text: "Apps on\nPlay Store"),
+  Stat(count: "50+", text: "Projects"),
 ];
 
 class PortfolioStats extends StatelessWidget {
@@ -18,6 +18,7 @@ class PortfolioStats extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: ScreenHelper(
+        key: Key("portfolio_stats"),
         desktop: _buildUi(kDesktopMaxWidth, context),
         tablet: _buildUi(kTabletMaxWidth, context),
         mobile: _buildUi(getMobileMaxWidth(context), context),
@@ -27,10 +28,11 @@ class PortfolioStats extends StatelessWidget {
 
   Widget _buildUi(double width, BuildContext context) {
     return Container(
-      child: ResponsiveWrapper(
-        maxWidth: width,
-        minWidth: width,
-        defaultScale: false,
+      child: ResponsiveConstraints(
+        constraint: BoxConstraints(
+          maxWidth: width,
+          minWidth: width,
+        ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraint) {
             return Wrap(
@@ -39,7 +41,6 @@ class PortfolioStats extends StatelessWidget {
               children: stats.map((stat) {
                 return Container(
                   padding: EdgeInsets.symmetric(vertical: 15.0),
-                  // Just use the helper here really
                   width: ScreenHelper.isMobile(context)
                       ? constraint.maxWidth / 2.0 - 20
                       : (constraint.maxWidth / 4.0 - 20),

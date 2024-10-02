@@ -1,44 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/models/design_process.dart';
+import 'package:web_portfolio/models/experience.dart';
 import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
 
-final List<DesignProcess> designProcesses = [
-  DesignProcess(
+import '../../../utils/download_files.dart';
+
+final List<Experience> experience = [
+  Experience(
+    title: "PROMOTE",
+    imagePath: "assets/plan.png",
+    subtitle:
+        "Focus on creating strategies that get your product noticed, helping it connect with the right audience and grow organically.",
+  ),
+  Experience(
     title: "DESIGN",
     imagePath: "assets/design.png",
     subtitle:
-        "A full stack allround designer thay may or may not include a guide for specific creative",
+        "Design intuitive and visually appealing user experiences, making sure every interface feels seamless and easy to use.",
   ),
-  DesignProcess(
+  Experience(
     title: "DEVELOP",
     imagePath: "assets/develop.png",
     subtitle:
-        "A full stack allround developer thay may or may not include a guide for specific creative",
+        "Build reliable, efficient apps, paying attention to scalability and performance to ensure smooth functionality for users.",
   ),
-  DesignProcess(
-    title: "WRITE",
+  Experience(
+    title: "SOLVE",
     imagePath: "assets/write.png",
     subtitle:
-        "A full stack allround writer thay may or may not include a guide for specific creative",
-  ),
-  DesignProcess(
-    title: "PROMOTE",
-    imagePath: "assets/promote.png",
-    subtitle:
-        "A full stack allround promoter thay may or may not include a guide for specific creative",
+        "Enjoy tackling complex challenges, finding clear, effective solutions through careful analysis and thoughtful execution.",
   ),
 ];
 
 class CvSection extends StatelessWidget {
+  CvSection({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       child: ScreenHelper(
+        key: Key("CV section"),
         desktop: _buildUi(context, kDesktopMaxWidth),
         tablet: _buildUi(context, kTabletMaxWidth),
         mobile: _buildUi(context, getMobileMaxWidth(context)),
@@ -48,12 +51,14 @@ class CvSection extends StatelessWidget {
 
   Widget _buildUi(BuildContext context, double width) {
     // we need the context to get maxWidth before the constraints below
-    return ResponsiveWrapper(
-      maxWidth: width,
-      minWidth: width,
-      defaultScale: false,
+    return ResponsiveConstraints(
+      constraint: BoxConstraints(
+        maxWidth: width,
+        minWidth: width,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +73,13 @@ class CvSection extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  String googleDriveLink =
+                      "https://drive.google.com/file/d/1tLtS7B9JOE4Dfs0qfF-L_F87nWwKrrJk/view?usp=sharing";
+                  String fileName = "Biniyam_Demissew_Resume.pdf";
+
+                  downloadFileFromGoogleDrive(googleDriveLink, fileName);
+                },
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Text(
@@ -96,15 +107,15 @@ class CvSection extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   gridDelegate: ResponsiveGridDelegate(
                     mainAxisSpacing: 20.0,
-                    crossAxisSpacing: 20.0,
-                    maxCrossAxisExtent: ScreenHelper.isTablet(context) ||
-                            ScreenHelper.isMobile(context)
-                        ? constraints.maxWidth / 2.0
-                        : 250.0,
-                    // Hack to adjust child height
+                    crossAxisSpacing: ScreenHelper.isDesktop(context) ? 80 : 20,
+                    maxCrossAxisExtent:
+                        ScreenHelper.isTablet(context) || ScreenHelper.isMobile(context)
+                            ? constraints.maxWidth / 1.2
+                            : 250.0,
+                    // adjust child height
                     childAspectRatio: ScreenHelper.isDesktop(context)
-                        ? 1
-                        : MediaQuery.of(context).size.aspectRatio * 1.5,
+                        ? 1.5
+                        : MediaQuery.of(context).size.aspectRatio * 1.2,
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -115,14 +126,12 @@ class CvSection extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.asset(
-                                designProcesses[index].imagePath,
+                                experience[index].imagePath,
                                 width: 40.0,
                               ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
+                              SizedBox(width: 15.0),
                               Text(
-                                designProcesses[index].title,
+                                experience[index].title,
                                 style: GoogleFonts.oswald(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w700,
@@ -135,7 +144,7 @@ class CvSection extends StatelessWidget {
                             height: 15.0,
                           ),
                           Text(
-                            designProcesses[index].subtitle,
+                            experience[index].subtitle,
                             style: TextStyle(
                               color: kCaptionColor,
                               height: 1.5,
@@ -146,7 +155,7 @@ class CvSection extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: designProcesses.length,
+                  itemCount: experience.length,
                 );
               },
             ),

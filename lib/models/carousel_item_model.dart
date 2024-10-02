@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CarouselItemModel {
-  final Widget text;
+  final Widget Function(BuildContext) text;
   final Widget image;
 
   CarouselItemModel({
-    @required this.text,
-    @required this.image,
+    required this.text,
+    required this.image,
   });
 }

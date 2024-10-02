@@ -6,11 +6,14 @@ import 'package:web_portfolio/utils/constants.dart';
 import 'package:web_portfolio/utils/screen_helper.dart';
 
 class Carousel extends StatelessWidget {
-  final CarouselController carouselController = CarouselController();
+  final CarouselSliderController carouselController = CarouselSliderController();
+
+  Carousel({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    double carouselContainerHeight = MediaQuery.of(context).size.height *
-        (ScreenHelper.isMobile(context) ? .7 : .85);
+    double carouselContainerHeight =
+        MediaQuery.of(context).size.height * (ScreenHelper.isMobile(context) ? .7 : .85);
     return Container(
       height: carouselContainerHeight,
       width: double.infinity,
@@ -29,32 +32,29 @@ class Carousel extends StatelessWidget {
               ),
               items: List.generate(
                 carouselItems.length,
-                (index) => Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      constraints: BoxConstraints(
-                        minHeight: carouselContainerHeight,
-                      ),
-                      child: ScreenHelper(
-                        // Responsive views
-                        desktop: _buildDesktop(
-                          context,
-                          carouselItems[index].text,
-                          carouselItems[index].image,
-                        ),
-                        tablet: _buildTablet(
-                          context,
-                          carouselItems[index].text,
-                          carouselItems[index].image,
-                        ),
-                        mobile: _buildMobile(
-                          context,
-                          carouselItems[index].text,
-                          carouselItems[index].image,
-                        ),
-                      ),
-                    );
-                  },
+                (index) => Container(
+                  constraints: BoxConstraints(
+                    minHeight: carouselContainerHeight,
+                  ),
+                  child: ScreenHelper(
+                    key: Key("carousel responsive view"),
+                    // Responsive views
+                    desktop: _buildDesktop(
+                      context,
+                      carouselItems[index].text(context),
+                      carouselItems[index].image,
+                    ),
+                    tablet: _buildTablet(
+                      context,
+                      carouselItems[index].text(context),
+                      carouselItems[index].image,
+                    ),
+                    mobile: _buildMobile(
+                      context,
+                      carouselItems[index].text(context),
+                      carouselItems[index].image,
+                    ),
+                  ),
                 ),
               ).toList(),
             ),
@@ -68,10 +68,11 @@ class Carousel extends StatelessWidget {
 // Big screens
 Widget _buildDesktop(BuildContext context, Widget text, Widget image) {
   return Center(
-    child: ResponsiveWrapper(
-      maxWidth: kDesktopMaxWidth,
-      minWidth: kDesktopMaxWidth,
-      defaultScale: false,
+    child: ResponsiveConstraints(
+      constraint: BoxConstraints(
+        maxWidth: kDesktopMaxWidth,
+        minWidth: kDesktopMaxWidth,
+      ),
       child: Row(
         children: [
           Expanded(
@@ -89,10 +90,11 @@ Widget _buildDesktop(BuildContext context, Widget text, Widget image) {
 // Mid screens
 Widget _buildTablet(BuildContext context, Widget text, Widget image) {
   return Center(
-    child: ResponsiveWrapper(
-      maxWidth: kTabletMaxWidth,
-      minWidth: kTabletMaxWidth,
-      defaultScale: false,
+    child: ResponsiveConstraints(
+      constraint: BoxConstraints(
+        maxWidth: kTabletMaxWidth,
+        minWidth: kTabletMaxWidth,
+      ),
       child: Row(
         children: [
           Expanded(

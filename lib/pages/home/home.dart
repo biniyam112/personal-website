@@ -1,113 +1,90 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:web_portfolio/pages/home/components/carousel.dart';
 import 'package:web_portfolio/pages/home/components/cv_section.dart';
 import 'package:web_portfolio/pages/home/components/education_section.dart';
 import 'package:web_portfolio/pages/home/components/footer.dart';
-import 'package:web_portfolio/pages/home/components/header.dart';
-import 'package:web_portfolio/pages/home/components/ios_app_ad.dart';
+import 'package:web_portfolio/pages/home/components/header/header.dart';
+import 'package:web_portfolio/pages/home/components/project_one_ad.dart';
 import 'package:web_portfolio/pages/home/components/portfolio_stats.dart';
 import 'package:web_portfolio/pages/home/components/skill_section.dart';
-import 'package:web_portfolio/pages/home/components/sponsors.dart';
 import 'package:web_portfolio/pages/home/components/testimonial_widget.dart';
-import 'package:web_portfolio/pages/home/components/website_ad.dart';
-import 'package:web_portfolio/utils/constants.dart';
+import 'package:web_portfolio/pages/home/components/project_two_ad.dart';
 import 'package:web_portfolio/utils/globals.dart';
+
+import '../../stateManagement/navigate_to_content.dart';
+import 'components/header/header_drawer_mobile.dart';
+import 'components/tech_stacks.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final navigateToContent = Provider.of<NavigateToContent>(context);
     return Scaffold(
       key: Globals.scaffoldKey,
-      endDrawer: Drawer(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 24.0,
-            ),
-            child: ListView.separated(
-              itemBuilder: (BuildContext context, int index) {
-                return headerItems[index].isButton
-                    ? MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: kDangerColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 28.0),
-                          child: TextButton(
-                            onPressed: headerItems[index].onTap,
-                            child: Text(
-                              headerItems[index].title,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    : ListTile(
-                        title: Text(
-                          headerItems[index].title,
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  height: 10.0,
-                );
-              },
-              itemCount: headerItems.length,
-            ),
+      endDrawer: HeaderDrawerMobile(),
+      body: SingleChildScrollView(
+        controller: navigateToContent.scrollController,
+        child: StickyHeader(
+          header: Consumer<NavigateToContent>(
+            builder: (context, navigateToContent, child) {
+              return AnimatedSwitcher(
+                duration: Duration(milliseconds: 200),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: Offset(0.0, -0.1),
+                        end: Offset(0.0, 0.0),
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  );
+                },
+                layoutBuilder: (currentChild, previousChildren) {
+                  return Stack(
+                    children: <Widget>[
+                      ...previousChildren,
+                      if (currentChild != null) currentChild,
+                    ],
+                  );
+                },
+                child: navigateToContent.isScrolled ? ScrolledHeader() : Header(),
+              );
+            },
           ),
-        ),
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                child: Header(),
-              ),
-              Carousel(),
-              SizedBox(
-                height: 20.0,
+              Carousel(
+                key: navigateToContent.contentKeys[PageContent.about],
               ),
               CvSection(),
-              IosAppAd(),
-              SizedBox(
-                height: 70.0,
+              ProjectOneAd(
+                key: navigateToContent.contentKeys[PageContent.project1],
               ),
-              WebsiteAd(),
+              ProjectTwoAd(
+                key: navigateToContent.contentKeys[PageContent.project2],
+              ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
+                padding: const EdgeInsets.only(top: 28.0),
                 child: PortfolioStats(),
               ),
-              SizedBox(
-                height: 50.0,
+              EducationSection(
+                key: navigateToContent.contentKeys[PageContent.education],
               ),
-              EducationSection(),
-              SizedBox(
-                height: 50.0,
+              SkillSection(
+                key: navigateToContent.contentKeys[PageContent.skills],
               ),
-              SkillSection(),
-              SizedBox(
-                height: 50.0,
+              TechStacks(),
+              TestimonialWidget(
+                key: navigateToContent.contentKeys[PageContent.testimonials],
               ),
-              Sponsors(),
-              SizedBox(
-                height: 50.0,
+              Footer(
+                key: navigateToContent.contentKeys[PageContent.contactMe],
               ),
-              TestimonialWidget(),
-              Footer(),
             ],
           ),
         ),

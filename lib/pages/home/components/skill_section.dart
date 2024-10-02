@@ -29,11 +29,16 @@ List<Skill> skills = [
 ];
 
 class SkillSection extends StatelessWidget {
+  SkillSection({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth),
+        key: Key("Skill section"),
+        desktop: Padding(
+          padding: const EdgeInsets.only(top: 160.0),
+          child: _buildUi(kDesktopMaxWidth),
+        ),
         tablet: _buildUi(kTabletMaxWidth),
         mobile: _buildUi(getMobileMaxWidth(context)),
       ),
@@ -44,18 +49,18 @@ class SkillSection extends StatelessWidget {
     return Center(
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return ResponsiveWrapper(
-            maxWidth: width,
-            minWidth: width,
+          return ResponsiveConstraints(
+            constraint: BoxConstraints(
+              maxWidth: width,
+              minWidth: width,
+            ),
             child: Flex(
-              direction: ScreenHelper.isMobile(context)
-                  ? Axis.vertical
-                  : Axis.horizontal,
+              direction: ScreenHelper.isMobile(context) ? Axis.vertical : Axis.horizontal,
               children: [
                 Expanded(
                   flex: ScreenHelper.isMobile(context) ? 0 : 2,
                   child: Image.asset(
-                    "assets/person_small.png",
+                    "assets/pixel_profile.png",
                     width: 300.0,
                   ),
                 ),

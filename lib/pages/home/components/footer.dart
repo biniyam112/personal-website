@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:web_portfolio/models/footer_item.dart';
@@ -16,28 +16,30 @@ final List<FooterItem> footerItems = [
   FooterItem(
     iconPath: "assets/phone.png",
     title: "PHONE",
-    text1: "+1 618-689-9604",
-    text2: "+1 781-689-9632",
+    text1: "+251 941726567",
   ),
   FooterItem(
     iconPath: "assets/email.png",
     title: "EMAIL",
-    text1: "hello@example.com",
-    text2: "info@flutterpanda.com",
+    text1: "biniyamdemissew112@gmail.com",
+    text2: "biniyamluna112@gmail.com",
   ),
   FooterItem(
     iconPath: "assets/whatsapp.png",
     title: "WHATSAPP",
-    text1: "+234 901-134-0095",
-    text2: "+234 901-134-0095",
+    text1: "+251 941726567",
   )
 ];
 
+final List<String> techStacks = [];
+
 class Footer extends StatelessWidget {
+  Footer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ScreenHelper(
+        key: Key("footer"),
         desktop: _buildUi(kDesktopMaxWidth, context),
         tablet: _buildUi(kTabletMaxWidth, context),
         mobile: _buildUi(getMobileMaxWidth(context), context),
@@ -48,10 +50,11 @@ class Footer extends StatelessWidget {
 
 Widget _buildUi(double width, BuildContext context) {
   return Center(
-    child: ResponsiveWrapper(
-      maxWidth: width,
-      minWidth: width,
-      defaultScale: false,
+    child: ResponsiveConstraints(
+      constraint: BoxConstraints(
+        maxWidth: width,
+        minWidth: width,
+      ),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Column(
@@ -65,7 +68,6 @@ Widget _buildUi(double width, BuildContext context) {
                   children: footerItems
                       .map(
                         (footerItem) => Container(
-                          height: 120.0,
                           width: ScreenHelper.isMobile(context)
                               ? constraints.maxWidth / 2.0 - 20.0
                               : constraints.maxWidth / 4.0 - 20.0,
@@ -96,26 +98,25 @@ Widget _buildUi(double width, BuildContext context) {
                                 SizedBox(
                                   height: 15.0,
                                 ),
-                                RichText(
-                                  textAlign: TextAlign.start,
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "${footerItem.text1}\n",
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${footerItem.text1}\n",
+                                      style: TextStyle(
+                                        color: kCaptionColor,
+                                      ),
+                                    ),
+                                    if (footerItem.text2 != null)
+                                      Text(
+                                        "${footerItem.text2}\n",
                                         style: TextStyle(
                                           color: kCaptionColor,
-                                          height: 1.8,
                                         ),
                                       ),
-                                      TextSpan(
-                                        text: "${footerItem.text2}\n",
-                                        style: TextStyle(
-                                          color: kCaptionColor,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -128,17 +129,15 @@ Widget _buildUi(double width, BuildContext context) {
                 height: 20.0,
               ),
               Flex(
-                direction: ScreenHelper.isMobile(context)
-                    ? Axis.vertical
-                    : Axis.horizontal,
+                direction: ScreenHelper.isMobile(context) ? Axis.vertical : Axis.horizontal,
                 mainAxisAlignment: ScreenHelper.isMobile(context)
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
+                    padding: EdgeInsets.only(bottom: 12.0),
                     child: Text(
-                      "Copyright (c) 2021 Michele Harrington. All rights Reserved",
+                      "© 2024 Biniyam Demissew. Made with Flutter & ❤️.",
                       style: TextStyle(
                         color: kCaptionColor,
                       ),
@@ -146,42 +145,11 @@ Widget _buildUi(double width, BuildContext context) {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text(
-                            "Privacy Policy",
-                            style: TextStyle(
-                              color: kCaptionColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          "|",
-                          style: TextStyle(
-                            color: kCaptionColor,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text(
-                            "Terms & Conditions",
-                            style: TextStyle(
-                              color: kCaptionColor,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                    children: List.generate(
+                      techStacks.length,
+                      (index) => _techStack(context, isLast: index == techStacks.length - 1),
+                    ),
+                  ),
                 ],
               )
             ],
@@ -189,5 +157,29 @@ Widget _buildUi(double width, BuildContext context) {
         },
       ),
     ),
+  );
+}
+
+Widget _techStack(BuildContext context, {bool isLast = true}) {
+  return Row(
+    children: [
+      SvgPicture.network("url"),
+      if (!isLast)
+        GestureDetector(
+          onTap: () {},
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                "|",
+                style: TextStyle(
+                  color: kCaptionColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+    ],
   );
 }

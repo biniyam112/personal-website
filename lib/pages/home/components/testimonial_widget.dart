@@ -8,26 +8,31 @@ import 'package:web_portfolio/utils/screen_helper.dart';
 final List<Testimonial> testimonials = [
   Testimonial(
     text:
-        "This is a testimonial text from Janny Stone. Michele is a professional at what he does and never ceases to amaze me with his beautiful works. I will like to work with him in the future again.",
-    occupation: "Product Designer",
-    personName: "JANNY STONE",
-    profilePhoto: "assets/female.png",
+        "Biniyam has an incredible ability to turn complex ideas into functional, user-friendly mobile applications. His attention to detail and commitment to delivering high-quality results truly set him apart. Working with him on RateEat was a seamless experience, and I look forward to collaborating again in the future.",
+    occupation: "Senior Mobile Developer",
+    personName: "NIGATU PAULOS",
+    profilePhoto: "assets/images/jeno.jpg",
   ),
   Testimonial(
     text:
-        "This is a testimonial text from Ken Williams. Michele is a professional at what he does and never ceases to amaze me with his beautiful works. I will like to work with him in the future again.",
-    occupation: "Art Director",
-    personName: "KEN WILLIAMS",
-    profilePhoto: "assets/male.png",
-  )
+        "Biniyam's problem-solving skills are second to none. He brings creativity and technical expertise to every project, always finding solutions to difficult challenges. His work on RateEat was outstanding, and I can confidently say he's one of the best developers I've worked with.",
+    occupation: "Fullstack Developer/Friend",
+    personName: "TIBENU WASSIE",
+    profilePhoto: "assets/images/tibebu.jpeg",
+  ),
 ];
 
 class TestimonialWidget extends StatelessWidget {
+  TestimonialWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth),
+        key: Key("testimonial"),
+        desktop: Padding(
+          padding: const EdgeInsets.only(top: 160.0),
+          child: _buildUi(kDesktopMaxWidth),
+        ),
         tablet: _buildUi(kTabletMaxWidth),
         mobile: _buildUi(getMobileMaxWidth(context)),
       ),
@@ -39,10 +44,11 @@ Widget _buildUi(double width) {
   return Center(
     child: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        return ResponsiveWrapper(
-          maxWidth: width,
-          minWidth: width,
-          defaultScale: false,
+        return ResponsiveConstraints(
+          constraint: BoxConstraints(
+            maxWidth: width,
+            minWidth: width,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -64,8 +70,7 @@ Widget _buildUi(double width) {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text:
-                            "This is the portfolio section. There is alot of work here",
+                        text: "This is the portfolio section. There is alot of work here",
                         style: TextStyle(color: Colors.white, height: 1.8),
                       ),
                       TextSpan(
@@ -87,9 +92,7 @@ Widget _buildUi(double width) {
                 height: 45.0,
               ),
               Flex(
-                direction: ScreenHelper.isMobile(context)
-                    ? Axis.vertical
-                    : Axis.horizontal,
+                direction: ScreenHelper.isMobile(context) ? Axis.vertical : Axis.horizontal,
                 // Lets map
                 children: testimonials.map((testimonial) {
                   return Expanded(
