@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -45,12 +46,19 @@ class ProjectOneAd extends StatelessWidget {
                   // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                    child: Image.asset(
-                      "assets/images/ios.png",
+                    child:
+                        //  SvgPicture.asset(
+                        //   "assets/images/Mockup-Illustration.svg",
+                        //   // Set width for image on smaller screen
+                        //   width: constraints.maxWidth > 720.0 ? null : 350.0,
+                        // ),
+                        Image.asset(
+                      "assets/images/Mockup-Illustration.png",
                       // Set width for image on smaller screen
                       width: constraints.maxWidth > 720.0 ? null : 350.0,
                     ),
                   ),
+                  SizedBox(width: 40),
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: Column(

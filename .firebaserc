@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "web-portfolio-ddd55"
-  }
+    "default": "personal-website-1851b",
+    "deployment": "personal-website-1851b"
+  },
+  "targets": {},
+  "etags": {}
 }

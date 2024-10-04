@@ -72,7 +72,7 @@ class ProjectTwoAd extends StatelessWidget {
                           height: 10.0,
                         ),
                         Text(
-                          "I design and develop mobile and web applications with a focus on user experience and user interface design, with deep understanding of the latest trends and technologies.",
+                          "3 years of designing experience working on production level designs for multiple local and intrnational companies\n20+ professional web and mobile designs.",
                           style: TextStyle(
                             color: kCaptionColor,
                             height: 1.5,
