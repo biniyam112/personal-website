@@ -1,3 +1,4 @@
+import 'package:blobs/blobs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -179,13 +180,13 @@ class ProjectTwoAd extends StatelessWidget {
                     width: 25.0,
                   ),
                   Expanded(
-                    flex: constraints.maxWidth > 720.0 ? 1 : 0,
-                    child: Image.asset(
-                      "assets/images/laptop.png",
-                      // Set width for image on smaller screen
-                      width: constraints.maxWidth > 720.0 ? null : 350.0,
-                    ),
-                  ),
+                      flex: constraints.maxWidth > 720.0 ? 1 : 0,
+                      child: Container(
+                        child: ClipPath(
+                          clipper: BlobClipper(edgesCount: 10),
+                          child: Image.asset("assets/images/Designer-Illustration.jpg"),
+                        ),
+                      )),
                 ],
               ),
             ),
