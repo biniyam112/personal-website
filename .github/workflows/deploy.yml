@@ -27,12 +27,14 @@ jobs:
       - name: Build web
         run: flutter build web --no-tree-shake-icons
 
+      - name: Clean root directory
+        run: |
+          rm -rf !(build)
+
       - name: Move files to root
         run: |
-          mkdir tmp
-          mv build/web/* tmp/
-          mv tmp/* .
-          rm -rf tmp build
+          mv build/web/* .
+          rm -rf build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
