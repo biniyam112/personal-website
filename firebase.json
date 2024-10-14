@@ -1,16 +1,17 @@
 {
   "hosting": {
-    "source": ".",
+    "site": "different-site-name",
+    "public": "build/web",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "frameworksBackend": {
-      "region": "us-east1"
-    }
-  },
-  "dataconnect": {
-    "source": "dataconnect"
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }
